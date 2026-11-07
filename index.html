@@ -185,7 +185,7 @@ tr.fresh td{animation:flash 2.4s ease-out both}
       </div>
       <div class="eyebrow" id="runLabel" style="padding:16px 26px 0">Last run</div>
       <div class="steps" id="steps"><div class="stp">Claim fees</div><div class="stp">Buy the stop</div><div class="stp">Snapshot holders</div><div class="stp">Airdrop</div></div>
-      <div class="ca"><span class="eyebrow">$TRAMFOLIO CA</span><code id="mainCa">coming soon</code><button class="link" type="button" data-copy-el="mainCa">copy</button><a class="link" id="mainLink" href="#" target="_blank" rel="noopener" hidden>pump.fun</a><a class="link" href="/ledger">ledger</a></div>
+      <div class="ca"><span class="eyebrow">$TRAMFOLIO CA</span><code id="mainCa">coming soon</code><button class="link" type="button" data-copy-el="mainCa">copy</button><a class="link" id="mainLink" href="https://pump.fun" target="_blank" rel="noopener">pump.fun</a><a class="link" href="/ledger">ledger</a></div>
     </div>
   </div>
 
@@ -308,7 +308,7 @@ function renderSign(){
   $("prev").innerHTML=prev?pfp(prev.mint)+`<span>$${esc(prev.symbol)} · ${prev.paid} paid</span>`:"<span>Nothing yet</span>";
   $("next").innerHTML=`<span>$${esc(meta(nx.ca).symbol)}</span>`+pfp(nx.ca);
   $("stLap").textContent=S.lap+" · "+(cur+1)+"/"+N;
-  $("mainCa").textContent=S.mint||"coming soon"; const ml=$("mainLink"); if(S.mint){ml.href="https://pump.fun/coin/"+S.mint;ml.hidden=false}
+  $("mainCa").textContent=S.mint||"coming soon"; const ml=$("mainLink"); if(ml){ml.href=S.mint?("https://pump.fun/coin/"+S.mint):"https://pump.fun";ml.hidden=false}
   const m=$("mode"); m.className="pill "+(S.live?"live":S.dryRun?"dry":""); m.title=S.feeRoute&&S.feeRoute.mode==="sharing"?"fees routed on chain to a dedicated engine wallet (pump.fun fee sharing)":""; m.innerHTML=S.live?"<i></i>LIVE":S.feeRoute&&S.feeRoute.ok===false&&S.wallet?"FEE ROUTE PENDING":S.dryRun?"<i></i>DRY RUN":S.mint?"PAUSED":"PRE-LAUNCH";
   $("rMin").textContent=S.rules.minRoundSol; $("rThr").textContent=S.rules.ataRentThresholdSol||0.0025;
   $("rHold").textContent=S.rules.minHolding>0?` Minimum ${S.rules.minHolding.toLocaleString()} $TRAMFOLIO.`:""+(S.rules.maxHolding>0?` Wallets above ${S.rules.maxHolding.toLocaleString()} are capped out.`:"");
