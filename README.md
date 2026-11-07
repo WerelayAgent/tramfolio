@@ -4,7 +4,14 @@
 
 Every 5 minutes, creator fees from `$TRAMFOLIO` buy the next coin on the line via Jupiter and airdrop it directly to holders. 14 stops along the track, then it loops continuously.
 
+
 ---
+
+## 🪙 Token Information
+
+- **Contract Address (CA)**: `6uVZ43SinGKDPbUJeSdRCuA7uv5R3nHk5okCJVgYpump`
+- **Trade on pump.fun**: [https://pump.fun/coin/6uVZ43SinGKDPbUJeSdRCuA7uv5R3nHk5okCJVgYpump](https://pump.fun/coin/6uVZ43SinGKDPbUJeSdRCuA7uv5R3nHk5okCJVgYpump)
+
 
 ## 🚃 How the Tram Engine Works
 
