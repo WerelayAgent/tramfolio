@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/state",
+      "destination": "/api/state.json"
+    },
+    {
+      "source": "/api/meta",
+      "destination": "/api/meta.json"
+    },
+    {
+      "source": "/api/feed",
+      "destination": "/api/feed.json"
+    },
+    {
+      "source": "/api/series",
+      "destination": "/api/series.json"
+    },
+    {
+      "source": "/ledger",
+      "destination": "/ledger.html"
+    }
+  ]
+}

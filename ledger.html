@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tramfolio · Ledger</title>
+<meta name="description" content="The books of Tramfolio: every fee claimed, every coin bought, every airdrop sent, every transaction. On chain, linked.">
+<meta property="og:title" content="Tramfolio · Ledger"><meta property="og:description" content="Fees in, buys out, every drop linked to Solscan."><meta property="og:image" content="/img/og.jpg">
+<link rel="icon" href="/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#efe9df;--card:#fffdf8;--ink:#17181f;--soft:#4b4f5c;--muted:#8b8e9a;--rule:#e1dbd0;--line:#ff7a1a;--deep:#d85a00;--ok:#179a62;--bad:#d4364b;--board:#17181f;--amber:#ffb23e;
+--sans:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}button{font-family:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 18px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--rule);transition:box-shadow .25s}header.scrolled{box-shadow:0 6px 24px -16px rgba(23,24,31,.35)}
+header .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:19px}
+.brand img{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:top;box-shadow:0 0 0 1px var(--rule)}
+.xlink{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:700;color:var(--ink)}.xlink svg{width:16px;height:16px;fill:currentColor}
+header nav{margin-left:auto;display:flex;gap:20px}
+header nav a{text-decoration:none;font-size:13px;color:var(--soft)}header nav a:hover,header nav a.on{color:var(--ink)}header nav a.on{font-weight:700}
+.btn{border:0;background:var(--ink);color:#fff;font-weight:700;font-size:13px;padding:9px 15px;border-radius:999px;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .15s,background .15s,box-shadow .15s}
+.btn:hover{background:#30323d;transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(23,24,31,.5)}.btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:6px;font:500 11px var(--mono);letter-spacing:.1em;padding:3px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--soft)}
+.pill.live{border-color:#bfe8d3;color:var(--ok)}.pill.live i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1.3s infinite}.pill.dry{border-color:#ffd8b8;color:var(--deep)}
+@keyframes blink{50%{opacity:.25}}
+.pfp{border-radius:50%;background:var(--line);box-shadow:0 0 0 1px var(--rule);overflow:hidden;position:relative;display:grid;place-items:center;flex:none;font-weight:700;color:#fff}
+.pfp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* page head */
+.ph{margin-top:26px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.ph h1{margin:0;font-size:clamp(30px,4.4vw,44px);line-height:1.05;letter-spacing:-.02em}.ph p{margin:8px 0 0;color:var(--soft);max-width:64ch}
+.ph .side{font:500 12px var(--mono);color:var(--muted);text-align:right}
+section{margin-top:40px}.sh{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+h2{margin:0;font-size:26px;letter-spacing:-.02em}.sh p{margin:4px 0 0;color:var(--soft);max-width:62ch}
+/* books */
+.books{display:grid;grid-template-columns:1.35fr 1fr;gap:18px}
+.card{background:var(--card);border-radius:16px;padding:22px;min-width:0}
+.station{background:var(--card);border-radius:16px;overflow:hidden}.stripe{height:10px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr)}.grid>div{padding:16px 22px;border-left:1px solid var(--rule);border-top:1px solid var(--rule);min-width:0}.grid>div:nth-child(3n+1){border-left:0}.grid>div:nth-child(-n+3){border-top:0}
+.v{font:700 22px var(--mono);margin-top:4px;overflow-wrap:anywhere}.v small{font-size:12px;color:var(--muted);font-weight:500}.v.in{color:var(--ok)}.v.out{color:var(--deep)}
+.sub{font:12px var(--mono);color:var(--muted);margin-top:2px}
+.ident{padding:16px 22px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft);line-height:1.6}.ident b{color:var(--ink);font-family:var(--mono);font-weight:500}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:12px 0 8px;background:var(--rule)}.bar i{display:block;height:100%;min-width:2px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font:500 11px var(--mono);color:var(--soft)}.legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:var(--c);vertical-align:-1px}
+.board{background:var(--board);color:#e9e9ee;border-radius:16px;overflow:hidden;min-width:0}
+.board h3{margin:0;padding:14px 18px;font-size:13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2b2d37;gap:10px}
+.board h3 small{font:500 11px var(--mono);color:#8b8e9a;letter-spacing:.08em}
+.kv{padding:6px 18px 12px;font:13px var(--mono)}.kv div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #262830}.kv div:first-child{border-top:0}.kv span:first-child{color:#8b8e9a}.kv a{color:#9fc7ff}
+.kv .coin{display:flex;align-items:center;gap:8px}.kv .pfp{width:20px;height:20px;font-size:9px;box-shadow:none}
+.route{margin:0 18px 16px;padding:12px 14px;border-radius:10px;background:#20222b;font-size:13px;line-height:1.55}.route b{color:var(--amber)}.route a{color:#9fc7ff}
+/* chart */
+.chartbox{background:var(--card);border-radius:16px;padding:18px 18px 10px;overflow:hidden}
+.chartbox svg{width:100%;height:auto;display:block}
+.chartbox .ax{font:500 10px var(--mono);fill:var(--muted)}.chartbox .gl{stroke:var(--rule);stroke-width:1}
+.chartbox rect.b{transition:opacity .15s}.chartbox rect.b:hover{opacity:.7}
+.chartbox .cum{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 3}
+/* rounds */
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+select{font:500 12px var(--mono);border:1.5px solid var(--rule);border-radius:999px;padding:7px 30px 7px 12px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234b4f5c' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--ink);appearance:none;cursor:pointer}select:focus{outline:none;border-color:var(--line)}
+.rows{overflow-x:auto}table{width:100%;border-collapse:collapse;font:12px var(--mono)}
+th{text-align:left;font:500 10px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8b8e9a;padding:9px 10px;white-space:nowrap;vertical-align:bottom}
+td{padding:10px;border-top:1px solid #262830;white-space:nowrap;vertical-align:middle}
+tr.r{cursor:pointer;transition:background .15s}tr.r:hover td{background:#1d1f28}tr.r.open td{background:#20222b}
+tr.fresh td{animation:flash 2.4s ease-out both}@keyframes flash{0%{background:rgba(95,227,166,.35)}100%{background:transparent}}
+td.coin{display:flex;align-items:center;gap:9px}td .pfp{width:24px;height:24px;font-size:10px;box-shadow:none}
+td.t{color:var(--amber)}td a{color:#9fc7ff}.dim{color:#8b8e9a}.dimc{color:#8b8e9a;font-size:11px}
+.tag{font:700 10px var(--mono);letter-spacing:.1em;padding:2px 7px;border-radius:4px;white-space:nowrap}.tag.sent{color:#5fe3a6;border:1px solid #2f6b52}.tag.q{color:#8b8e9a;border:1px solid #3a3d48}.tag.roll{color:#ffb23e;border:1px solid #6b4f1f}.tag.bad{color:#ff7b8a;border:1px solid #6b2f38}.tag.sv{color:#9fc7ff;border:1px solid #2f4b6b}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:4px;font:500 11px var(--mono);padding:2px 8px;border-radius:999px;border:1px solid #3a3d48;color:#9fc7ff;text-decoration:none;background:none;cursor:pointer;line-height:1.5}
+.chip:hover{border-color:#9fc7ff}.chip.n{color:#e9e9ee;border-color:#4b4f5c}.chip.n b{color:var(--amber)}
+tr.x td{background:#121319;white-space:normal;padding:0}
+.exp{padding:14px 18px 16px;position:sticky;left:0;max-width:min(calc(100vw - 36px),1124px);box-sizing:border-box}
+.exp .hd{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;color:#a6a9b5}.exp .hd b{color:#fff}
+.rc{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 14px;font:12px var(--mono)}
+.rc div{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:5px 0;border-top:1px solid #22242d}.rc a{color:#9fc7ff;text-decoration:none}.rc a:hover{text-decoration:underline}.rc .am{color:#e9e9ee}
+.more{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chip.lt{color:#e9e9ee;border-color:#4b4f5c}
+.sigs{margin-top:12px;font-size:11px;color:#8b8e9a}.sigs .chips{margin-top:6px}
+.empty{padding:26px 18px;color:#a6a9b5;font-size:14px;line-height:1.6}.empty b{color:var(--amber);font-family:var(--mono)}
+.err{padding:12px 16px;border-radius:12px;background:#fff1e6;color:var(--deep);font-size:13px;margin-top:14px}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,var(--rule),#f3eee6,var(--rule));background-size:200% 100%;animation:sk 1.2s infinite;margin-top:8px}@keyframes sk{to{background-position:-200% 0}}
+footer{margin:56px 0 0;padding:22px 0 30px;border-top:1px solid var(--rule);color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.station,.card,.board,.chartbox{box-shadow:0 1px 2px rgba(23,24,31,.04),0 12px 32px -20px rgba(23,24,31,.25)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+.ph{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}.books{animation:rise .7s .08s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+tbody tr.r{animation:rowin .4s ease both}@keyframes rowin{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@media (max-width:980px){.books{grid-template-columns:1fr}header nav{display:none}.xtext{display:none}.ph{grid-template-columns:1fr}.ph .side{text-align:left}}
+@media (max-width:720px){.grid{grid-template-columns:1fr 1fr}.grid>div{border-left:1px solid var(--rule)!important;border-top:1px solid var(--rule)!important;padding:14px 18px}.grid>div:nth-child(odd){border-left:0!important}.grid>div:nth-child(-n+2){border-top:0!important}.v{font-size:19px}.ident{padding:14px 18px}.rc{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="/"><img src="/img/main.jpg" alt="">Tramfolio</a>
+  <span class="pill" id="mode">LOADING</span>
+  <nav><a href="/#line">The line</a><a href="/#drops">Distributions</a><a href="/#how">How it works</a><a href="/ledger" class="on">Ledger</a><a href="/wallet">Your bag</a></nav>
+  <a class="xlink" href="https://x.com/tramfolio" target="_blank" rel="noopener" title="Tramfolio on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="xtext">@tramfolio</span></a>
+  <a class="btn" href="/wallet">Your bag</a>
+</div></header>
+
+<main class="wrap">
+  <div class="ph">
+    <div><div class="eyebrow">The books</div><h1>Ledger</h1><p>Every SOL the engine ever touched, and where it went. Fees come in, the line's coins go out to holders. Every number below is a transaction you can open on Solscan.</p></div>
+    <div class="side" id="asOf">—</div>
+  </div>
+
+  <div class="books" id="books">
+    <div class="station">
+      <div class="stripe"></div>
+      <div class="grid" id="proofGrid"><div><div class="eyebrow">Fees in</div><div class="skel"></div></div><div><div class="eyebrow">Buys out</div><div class="skel"></div></div><div><div class="eyebrow">Wallet</div><div class="skel"></div></div></div>
+      <div class="ident" id="ident"><div class="skel" style="width:70%"></div></div>
+    </div>
+    <div class="board">
+      <h3>Saved for holders <small id="savedHead">—</small></h3>
+      <div class="kv" id="savedList"><div><span>Loading…</span></div></div>
+      <h3>Fee route <small id="routeHead">—</small></h3>
+      <div class="route" id="route">—</div>
+    </div>
+  </div>
+
+  <section class="reveal" id="chart">
+    <div class="sh"><div><h2>SOL per round</h2><p>What each run spent buying its stop, oldest on the left. Rolled and carried runs show as gaps: the fees waited for the next stop. The dashed line is the running total.</p></div><div class="eyebrow" id="chartHead"></div></div>
+    <div class="chartbox" id="chartBox"><div class="skel" style="height:140px"></div></div>
+  </section>
+
+  <section class="reveal" id="rounds">
+    <div class="sh"><div><h2>Rounds</h2><p>Newest first. Tap a row to see every wallet that received the drop, with its transaction.</p></div>
+      <div class="filters"><select id="fStatus"><option value="">All statuses</option><option value="done">Sent</option><option value="rolled">Rolled</option><option value="carry">Carry</option></select><select id="fCoin"><option value="">All coins</option></select><span class="eyebrow" id="count"></span></div></div>
+    <div class="board"><div class="rows"><table><thead><tr><th>Time</th><th title="lap · stop">Stop</th><th>Coin</th><th>Status</th><th>Claimed</th><th>Spent</th><th>Impact</th><th title="paid · accounts opened · saved · failed">Paid · Opened<br>Saved · Failed</th><th>Sweeps</th><th style="min-width:180px">Transactions</th></tr></thead><tbody id="rows"><tr><td colspan="10" class="empty">Loading the books…</td></tr></tbody></table></div></div>
+  </section>
+
+  <footer><div>Community-built. Not affiliated with the holder whose bags inspired the line. Not financial advice.</div><div><a href="https://x.com/tramfolio" target="_blank" rel="noopener">@tramfolio on X</a> · Prices: DexScreener · Routes: Jupiter</div></footer>
+</main>
+
+<script>
+
+// Tramfolio API static fallback shim
+(function() {
+  const origFetch = window.fetch;
+  window.fetch = function(url, options) {
+    if (typeof url === 'string' && url.startsWith('/api/')) {
+      return origFetch.apply(this, arguments).then(res => {
+        if (!res.ok && (res.status === 404 || res.status === 502)) {
+          let base = url.split('?')[0];
+          if (!base.endsWith('.json')) {
+            base = base.replace(/\/$/, '') + '.json';
+            return origFetch(base, options).catch(() => res);
+          }
+        }
+        return res;
+      }).catch(err => {
+        let base = url.split('?')[0];
+        if (!base.endsWith('.json')) {
+          base = base.replace(/\/$/, '') + '.json';
+          return origFetch(base, options);
+        }
+        throw err;
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+
+const API=new URLSearchParams(location.search).get("api")||"";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short=a=>a?a.slice(0,4)+"…"+a.slice(-4):"";
+const COLORS=["#ff7a1a","#e8457c","#3b82c4","#14935f","#8b5cf6","#d4a017"];
+const col=ca=>{let h=0;for(const c of ca||"")h=(h*31+c.charCodeAt(0))>>>0;return COLORS[h%COLORS.length]};
+const sol=n=>{n=+n||0;return n>=10?n.toFixed(2):n.toFixed(4)};
+const tok=(raw,d=6)=>(Number(raw||0)/10**d).toLocaleString(undefined,{maximumFractionDigits:0});
+const int=n=>(+n||0).toLocaleString();
+const abs=ms=>new Date(ms).toLocaleString([],{dateStyle:"medium",timeStyle:"short"});
+function rel(ms){const s=Math.max(0,(Date.now()-ms)/1000);if(s<45)return"just now";if(s<3600)return Math.round(s/60)+" min ago";if(s<86400)return(s/3600).toFixed(s<36000?1:0).replace(/\.0$/,"")+" h ago";return Math.round(s/86400)+" d ago"}
+const tm=unix=>`<span title="${esc(abs(unix*1000))}">${rel(unix*1000)}</span>`;
+const tx=(sig,label,cls="")=>sig?`<a class="chip ${cls}" href="https://solscan.io/tx/${esc(sig)}" target="_blank" rel="noopener" title="${esc(sig)}">${label}</a>`:"";
+const acct=pk=>`https://solscan.io/account/${pk}`;
+const pfp=(ca,sym)=>`<div class="pfp" style="background:${col(ca)}"><span>${esc((sym||"?").charAt(0))}</span><img src="${API}/api/img?ca=${ca}" alt="" loading="lazy" onerror="this.remove()"></div>`;
+const tag=s=>s==="done"?'<span class="tag sent">SENT</span>':s==="rolled"?'<span class="tag roll">ROLLED</span>':'<span class="tag q">CARRY</span>';
+const ndrops=t=>Array.isArray(t?.drops)?t.drops.length:(+t?.drops||0);
+
+let L=null, S=null, fallback=false, seen=new Set(), first=true;
+const open=new Map();   // cycle -> {drops:[], showAll:false, loading:bool, error}
+
+async function getJSON(p){const r=await fetch(API+p,{cache:"no-store"});const ct=r.headers.get("content-type")||"";if(!r.ok||!ct.includes("json"))throw new Error(r.status===404||!ct.includes("json")?"not deployed yet":"HTTP "+r.status);return r.json()}
+
+/// books
+function renderProof(){
+  const p=L.proof, fin=+p.claimedSol+ +(p.fundingSol||0), out=+p.spentSol+ +(p.rentSol||0)+ +(p.opsSol||0)+ +(p.carrySol||0), net=Math.max(0,fin-out);
+  const cell=(k,v,sub="",cls="")=>`<div><div class="eyebrow">${k}</div><div class="v ${cls}">${v}</div>${sub?`<div class="sub">${sub}</div>`:""}</div>`;
+  $("proofGrid").innerHTML=
+    cell("Fees claimed",sol(p.claimedSol)+" <small>SOL</small>",p.fundingSol?"+ "+sol(p.fundingSol)+" SOL operator gas":"creator fees, in SOL","in")+
+    cell("Buys",sol(p.spentSol)+" <small>SOL</small>",int(p.buys)+" buys on the line","out")+
+    cell("Rent for holders",sol(p.rentSol||0)+" <small>SOL</small>","token accounts opened: "+int(L.rounds.reduce((s,r)=>s+(+r.creates||0),0)),"out")+
+    cell("Ops",sol(p.opsSol||0)+" <small>SOL</small>",+p.opsSol?"operator share":"nothing taken","out")+
+    cell("Carry",sol(p.carrySol||0)+" <small>SOL</small>","fees waiting for the next stop")+
+    cell("Engine wallet",p.walletSol==null?"—":sol(p.walletSol)+" <small>SOL</small>",`live balance · ${sol(p.gasReserveSol||0)} gas reserve · <a href="${acct(p.wallet)}" target="_blank" rel="noopener">${short(p.wallet)}</a>`)+
+    cell("Rounds",int(p.rounds),int(p.buys)+" buys · "+int(L.rounds.filter(r=>r.status==="rolled").length)+" rolled")+
+    cell("Payouts",int(p.paid),(p.sweptPaid?int(p.sweptPaid)+" via sweeps · ":"")+"dust burned: "+tok(p.burnedRaw))+
+    cell("Transactions",int(p.txs),"claims, buys, drops, burns, closes");
+  const parts=[["Buys",+p.spentSol,"#ff7a1a"],["Rent",+p.rentSol||0,"#ffb23e"],["Ops",+p.opsSol||0,"#8b5cf6"],["Carry",+p.carrySol||0,"#3b82c4"],["Network fees",net,"#8b8e9a"]].filter(x=>x[1]>0);
+  $("ident").innerHTML=`<div>Fees in <b>${sol(p.claimedSol)}</b>${p.fundingSol?` + operator gas <b>${sol(p.fundingSol)}</b>`:""} = buys <b>${sol(p.spentSol)}</b> + rent for holders' token accounts <b>${sol(p.rentSol||0)}</b> + ops <b>${sol(p.opsSol||0)}</b> + carry <b>${sol(p.carrySol||0)}</b> + network fees <b>${sol(net)}</b> SOL. Only fees are spent; the wallet's own SOL is the gas reserve.${p.migrated?` Migrated ${rel(p.migrated.at*1000)} from <a href="${acct(p.migrated.from)}" target="_blank" rel="noopener">${short(p.migrated.from)}</a> (${sol(p.migrated.solSent)} SOL, ${p.migrated.mints} mints).`:""}${fallback?" <span style='color:var(--deep)'>Ledger endpoint not reachable yet, showing the engine's live totals.</span>":""}</div>
+  <div class="bar">${parts.map(x=>`<i style="width:${(x[1]/Math.max(fin,1e-9)*100).toFixed(2)}%;background:${x[2]}" title="${x[0]} ${sol(x[1])} SOL"></i>`).join("")}</div>
+  <div class="legend">${parts.map(x=>`<span style="--c:${x[2]}">${x[0]} ${sol(x[1])}</span>`).join("")}</div>`;
+  const sv=p.saved||{wallets:0,sol:0,perMint:[]};
+  $("savedHead").textContent=sv.wallets?int(sv.wallets)+" WALLETS · "+sol(sv.sol)+" SOL":"NOTHING PENDING";
+  $("savedList").innerHTML=(sv.perMint&&sv.perMint.length?sv.perMint.map(m=>`<div><span class="coin">${pfp(m.mint,m.symbol)}$${esc(m.symbol)}</span><span>${tok(m.raw)} <span class="dim">· ${int(m.wallets)} wallets · ${sol(m.sol)} SOL</span></span></div>`).join(""):`<div><span>No drops are being saved. Every holder's drop cleared the rent bar.</span></div>`)+
+    `<div><span style="white-space:normal;line-height:1.5">Drops worth less than the account rent (${esc(S?.rules?.ataRentThresholdSol??0.0025)} SOL) are kept on the books for the wallet and paid once they add up.</span></div>`;
+  const fr=p.feeRoute||{};
+  $("routeHead").textContent=fr.mode==="sharing"?"ON-CHAIN FEE SHARE":fr.mode==="creator"?"CREATOR WALLET":"NOT SET";
+  $("route").innerHTML=fr.mode==="sharing"?`Fees flow through pump.fun's on-chain <b>fee sharing</b> to <a href="${acct(typeof fr.sharing==="string"?fr.sharing:(fr.sharing&&fr.sharing.address)||"")}" target="_blank" rel="noopener">${short(typeof fr.sharing==="string"?fr.sharing:(fr.sharing&&fr.sharing.address)||"")}</a>; the engine wallet <a href="${acct(p.wallet)}" target="_blank" rel="noopener">${short(p.wallet)}</a> claims them each round.`:fr.mode==="creator"?`The engine wallet <a href="${acct(p.wallet)}" target="_blank" rel="noopener">${short(p.wallet)}</a> <b>is the creator</b> of $TRAMFOLIO${p.mint?` (<a href="https://pump.fun/coin/${p.mint}" target="_blank" rel="noopener">${short(p.mint)}</a>)`:""}: it claims the creator fees directly, every round, and never spends more than it claimed.`:`No fee route is set up yet${p.wallet?`. Engine wallet: <a href="${acct(p.wallet)}" target="_blank" rel="noopener">${short(p.wallet)}</a>`:""}.`+(fr.ok===false?` <span style="color:#ff7b8a">${esc(fr.error||"route check failed")}</span>`:"");
+  const m=$("mode");const live=S?S.live:fr.ok!==false&&!!p.mint;m.className="pill "+(live?"live":S?.dryRun||p.dryRun?"dry":"");m.innerHTML=live?"<i></i>LIVE":S?.dryRun||p.dryRun?"DRY RUN":p.mint?"PAUSED":"PRE-LAUNCH";
+  $("asOf").innerHTML=`as of ${esc(abs(Date.now()))}<br>${L.rounds.length} of ${int(p.rounds)} rounds loaded · refreshes every 30 s`;
+}
+
+/// chart: bars of spent per round + cumulative line
+function renderChart(){
+  const rs=[...L.rounds].reverse(); if(!rs.length){$("chartBox").innerHTML='<div class="empty" style="color:var(--muted)">No rounds yet.</div>';return}
+  const W=1100,H=240,pl=46,pr=14,pt=14,pb=28,iw=W-pl-pr,ih=H-pt-pb;
+  const max=Math.max(0.01,...rs.map(r=>+r.spentSol||0)); let cum=0; const tot=rs.reduce((s,r)=>s+(+r.spentSol||0),0);
+  const bw=iw/rs.length, gap=Math.min(3,bw*.25);
+  const y=v=>pt+ih-(v/max)*ih, yc=v=>pt+ih-(v/Math.max(tot,1e-9))*ih;
+  let bars="",pts=[];
+  rs.forEach((r,i)=>{const v=+r.spentSol||0;cum+=v;const x=pl+i*bw;pts.push([x+bw/2,yc(cum)]);
+    const c=r.status==="done"?"var(--line)":r.status==="rolled"?"var(--amber)":"var(--rule)";
+    bars+=`<rect class="b" x="${(x+gap/2).toFixed(1)}" y="${(v>0?y(v):pt+ih-2).toFixed(1)}" width="${Math.max(1,bw-gap).toFixed(1)}" height="${(v>0?ih-(y(v)-pt):2).toFixed(1)}" rx="1.5" fill="${c}"><title>#${r.cycle} · ${abs(r.at*1000)} · stop ${r.stop} $${r.symbol} · ${r.status} · ${sol(v)} SOL spent${r.paid?` · ${r.paid} paid`:""}</title></rect>`});
+  const ticks=[0,.5,1].map(k=>`<line class="gl" x1="${pl}" x2="${W-pr}" y1="${y(max*k)}" y2="${y(max*k)}"/><text class="ax" x="${pl-6}" y="${y(max*k)+3}" text-anchor="end">${sol(max*k)}</text>`).join("");
+  const nx=Math.min(6,rs.length), xl=Array.from({length:nx},(_,k)=>{const i=Math.round(k*(rs.length-1)/Math.max(1,nx-1));const d=new Date(rs[i].at*1000);return`<text class="ax" x="${pl+i*bw+bw/2}" y="${H-8}" text-anchor="middle">${d.toLocaleDateString([],{month:"short",day:"numeric"})} ${d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}</text>`}).join("");
+  $("chartBox").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="SOL spent per round">${ticks}${bars}<path class="cum" d="M${pts.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join("L")}"/>${xl}<text class="ax" x="${W-pr}" y="${pt+8}" text-anchor="end">Σ ${sol(tot)} SOL</text></svg>`;
+  $("chartHead").textContent=`${rs.length} rounds · max ${sol(max)} SOL`;
+}
+
+/// rounds table
+function filtered(){const st=$("fStatus").value,c=$("fCoin").value;return L.rounds.filter(r=>(!st||r.status===st)&&(!c||r.symbol===c))}
+function rowHTML(r){
+  const t=r.txs||{}, nd=ndrops(t), sw=(r.sweeps||[]);
+  const chips=[tx(t.claim,"claim"),tx(t.buy,"buy"),tx(t.ops,"ops"),nd?`<button class="chip n" type="button" data-drops="${r.cycle}"><b>${nd}</b> drop tx${nd===1?"":"s"} ${open.has(r.cycle)?"▴":"▾"}</button>`:"",tx(t.burn,"burn"),tx(t.close,"close"),...(Array.isArray(t.sweeps)?t.sweeps.flatMap(s=>(s.txs||[]).slice(0,1).map(x=>tx(x,"sweep $"+esc(s.symbol)))):[])].filter(Boolean).join("");
+  const imp=r.impactPct==null?'<span class="dim">—</span>':`<span class="${r.impactPct>2?"dim":""}" style="${r.impactPct>2?"color:#ffb23e":""}">${(+r.impactPct).toFixed(2)}%</span>`;
+  const swl=sw.filter(s=>+s.paid||+s.failed), sweeps=swl.length?swl.map(s=>`$${esc(s.symbol)} ${int(s.paid)}${s.failed?` <span style="color:#ff7b8a">(${s.failed} failed)</span>`:""}`).join(", "):`<span class="dim" title="${sw.length?sw.length+" saved coin"+(sw.length===1?"":"s")+" checked, nothing had cleared the bar yet":"no sweep this round"}">—</span>`;
+  const skipped=r.skippedStops&&r.skippedStops.length?`<div class="dimc">skipped ${r.skippedStops.map(s=>"$"+esc(s)).join(", ")}</div>`:"";
+  return `<tr class="r ${open.has(r.cycle)?"open":""} ${!first&&!seen.has(r.cycle)?"fresh":""}" data-cycle="${r.cycle}">
+    <td class="t">${tm(r.at)}<div class="dimc">#${r.cycle}${r.recovered?" ↻":""}</div></td>
+    <td>L${r.lap} · ${String(r.stop).padStart(2,"0")}</td>
+    <td class="coin">${pfp(r.mint,r.symbol)}$${esc(r.symbol)}</td>
+    <td>${tag(r.status)}${skipped}</td>
+    <td>${sol(r.claimedSol)}${r.potSol&&Math.abs(r.potSol-r.claimedSol)>1e-6?`<div class="dimc">pot ${sol(r.potSol)}</div>`:""}</td>
+    <td>${r.status==="done"?sol(r.spentSol):'<span class="dim">—</span>'}${r.boughtRaw&&r.boughtRaw!=="0"?`<div class="dimc">${tok(r.boughtRaw)} $${esc(r.symbol)}</div>`:""}</td>
+    <td>${imp}</td>
+    <td>${r.status==="done"?`<b>${int(r.paid)}</b> <span class="dim">·</span> ${int(r.creates)} <span class="dim">·</span> ${int(r.savedWallets)} <span class="dim">·</span> ${r.failed?`<span style="color:#ff7b8a">${int(r.failed)}</span>`:"0"}<div class="dimc">${int(r.holders)} holders · rent ${sol(r.rentSol||r.rentReserveSol||0)}</div>`:`<span class="dim" title="${esc(r.note||"")}">${r.status==="rolled"?"rolled to the next stop":"fees carried to the next run"}</span>`}</td>
+    <td>${sweeps}</td>
+    <td><div class="chips">${chips||'<span class="dim">—</span>'}</div></td></tr>`;
+}
+function expHTML(r){
+  const o=open.get(r.cycle)||{}; const t=r.txs||{}; const sigs=Array.isArray(t.drops)?t.drops:[];
+  let body;
+  if(o.loading)body=`<div class="dimc">Loading recipients…</div>`;
+  else if(o.error)body=`<div style="color:#ff7b8a;font-size:12px">${esc(o.error)}</div>`;
+  else{
+    const d=o.drops||[], lim=o.showAll?d.length:200, shown=d.slice(0,lim);
+    body=d.length?`<div class="rc">${shown.map(x=>`<div><a href="/w/${esc(x.wallet)}${API?"?api="+encodeURIComponent(API):""}" title="${esc(x.wallet)}">${short(x.wallet)}</a><span class="am">${tok(x.amountRaw)} $${esc(x.symbol)}</span>${x.status==="paid"?(x.tx?`<a href="https://solscan.io/tx/${esc(x.tx)}" target="_blank" rel="noopener" title="${esc(x.tx)}">tx ↗</a>`:'<span class="tag sent">PAID</span>'):x.status==="saved"?'<span class="tag sv" title="below the rent bar, kept on the books">SAVED</span>':`<span class="tag bad" title="${esc(x.error||"")}">${esc(x.status||"FAILED").toUpperCase()}</span>`}</div>`).join("")}</div>
+      ${d.length>lim?`<div class="more"><button class="chip lt" type="button" data-all="${r.cycle}">Show all ${int(d.length)} recipients</button><span class="dimc">showing ${lim}</span></div>`:""}`:`<div class="dimc">No recipients recorded for this round.</div>`;
+  }
+  const paid=(o.drops||[]).filter(x=>x.status==="paid").length, saved=(o.drops||[]).filter(x=>x.status==="saved").length;
+  return `<tr class="x" data-x="${r.cycle}"><td colspan="10"><div class="exp"><div class="hd"><span>Round <b>#${r.cycle}</b> · stop ${r.stop} $${esc(r.symbol)} · ${esc(abs(r.at*1000))}${o.drops?` · <b>${int(paid)}</b> paid · <b>${int(saved)}</b> saved`:""}</span><span>${r.note?esc(r.note):""}</span></div>${body}
+    ${sigs.length?`<div class="sigs">${sigs.length} airdrop transaction${sigs.length===1?"":"s"}<div class="chips">${sigs.map((s,i)=>tx(s,"batch "+(i+1))).join("")}${Array.isArray(t.sweeps)?t.sweeps.flatMap(s=>(s.txs||[]).map((x,i)=>tx(x,`$${esc(s.symbol)} sweep ${i+1}`))).join(""):""}</div></div>`:""}</div></td></tr>`;
+}
+function renderRows(){
+  const rs=filtered(); $("count").textContent=rs.length+" / "+L.rounds.length;
+  $("rows").innerHTML=rs.length?rs.map(r=>rowHTML(r)+(open.has(r.cycle)?expHTML(r):"")).join(""):`<tr><td colspan="10" class="empty">No rounds match. ${L.rounds.length?"":"The engine hasn't run yet — the first round lands here with its claim, buy and drops."}</td></tr>`;
+  for(const r of L.rounds)seen.add(r.cycle); first=false;
+}
+function fillCoins(){const sel=$("fCoin"),cur=sel.value;const syms=[...new Set(L.rounds.map(r=>r.symbol))];sel.innerHTML='<option value="">All coins</option>'+syms.map(s=>`<option value="${esc(s)}" ${s===cur?"selected":""}>$${esc(s)}</option>`).join("")}
+
+async function toggle(cycle){
+  cycle=+cycle;
+  if(open.has(cycle)){open.delete(cycle);renderRows();return}
+  const o={loading:true,drops:null,showAll:false};open.set(cycle,o);renderRows();
+  try{const d=await getJSON(`/api/round/${cycle}?drops=1`);o.drops=(d.drops||[]).sort((a,b)=>(a.status===b.status?0:a.status==="paid"?-1:1)||Number(b.amountRaw)-Number(a.amountRaw));
+    const r=L.rounds.find(x=>x.cycle===cycle);if(r&&d.txs)r.txs=d.txs;   // upgrade slim txs to the full signature list
+  }catch(e){o.error="Could not load recipients ("+e.message+")."}
+  o.loading=false; if(open.has(cycle))renderRows();
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("a"))return;
+  const all=e.target.closest("[data-all]");if(all){open.get(+all.dataset.all).showAll=true;renderRows();return}
+  const d=e.target.closest("[data-drops]");if(d){toggle(d.dataset.drops);return}
+  const row=e.target.closest("tr.r");if(row)toggle(row.dataset.cycle);
+});
+$("fStatus").addEventListener("change",renderRows);$("fCoin").addEventListener("change",renderRows);
+
+/// state fallback while /api/ledger is not deployed: the slim rounds + totals carry most of the books
+function fromState(s){
+  const t=s.totals||{};
+  return{proof:{wallet:s.wallet,mint:s.mint,genesis:s.genesis,feeRoute:s.feeRoute,dryRun:s.dryRun,claimedSol:t.claimedSol||0,fundingSol:0,spentSol:t.spentSol||0,rentSol:t.rentSol||s.rounds.reduce((a,r)=>a+(+r.rentSol||+r.rentReserveSol||0),0),opsSol:t.opsSol||0,carrySol:s.carrySol||0,walletSol:s.balanceSol,gasReserveSol:s.rules?.gasReserveSol||0,rounds:t.rounds||0,buys:t.buys||0,paid:t.paid||0,sweptPaid:t.swept||0,burnedRaw:t.burnedRaw||"0",txs:s.rounds.reduce((a,r)=>a+["claim","buy","burn","close"].filter(k=>r.txs?.[k]).length+ndrops(r.txs),0),
+    saved:{wallets:Math.max(0,...s.line.map(l=>l.savedWallets||0)),sol:s.line.reduce((a,l)=>a+(+l.savedSol||0),0),perMint:s.line.filter(l=>l.savedWallets).map(l=>({symbol:l.symbol,mint:l.ca,wallets:l.savedWallets,raw:l.savedRaw,sol:l.savedSol||0}))},migrated:s.migrated||null},rounds:s.rounds};
+}
+async function load(){
+  try{S=await getJSON("/api/state")}catch(e){}
+  try{L=await getJSON("/api/ledger?limit=200");fallback=false}
+  catch(e){if(!S){showErr("Could not reach the engine ("+e.message+"). Retrying in 30 s.");return}L=fromState(S);fallback=true}
+  document.querySelectorAll(".err").forEach(x=>x.remove());
+  renderProof();renderChart();fillCoins();renderRows();
+}
+function showErr(m){document.querySelectorAll(".err").forEach(x=>x.remove());const d=document.createElement("div");d.className="err";d.textContent=m;$("books").after(d)}
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll(".reveal").forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)el.classList.add("in")}),2500);
+addEventListener("scroll",()=>document.querySelector("header").classList.toggle("scrolled",scrollY>8),{passive:true});
+if(API)document.querySelectorAll('a[href^="/"]').forEach(a=>{if(!a.href.includes("api="))a.href+=(a.href.includes("?")?"&":"?")+"api="+encodeURIComponent(API)});
+load();setInterval(load,30000);setInterval(()=>{if(L)document.querySelectorAll("td.t span[title]").forEach(s=>{const r=L.rounds.find(x=>abs(x.at*1000)===s.title);if(r)s.textContent=rel(r.at*1000)})},60000);
+</script>
+</body>
+</html>

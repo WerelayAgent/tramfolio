@@ -1,0 +1,20 @@
+{
+  "name": "tramfolio",
+  "version": "1.0.0",
+  "description": "Tramfolio ($TRAMFOLIO) - Automated Rotating Airdrop Tram on Solana",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve ."
+  },
+  "keywords": [
+    "tramfolio",
+    "solana",
+    "pumpfun",
+    "airdrop",
+    "rotating-portfolio",
+    "crypto"
+  ],
+  "author": "Tramfolio Team",
+  "license": "MIT"
+}
